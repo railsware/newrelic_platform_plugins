@@ -1,4 +1,12 @@
 #!/usr/bin/env ruby
+
+# Monitors a given log file, reporting the rate of occurrences of a provided term. It’s the perfect plugin for error tracking.
+#
+# Compatibility 
+# -------------
+# Requires the tail, grep, and wc commands.
+
+
 require "rubygems"
 require "bundler/setup"
 require "newrelic_plugin"
