@@ -37,4 +37,9 @@ agents:
     # For example, to count non-matching lines, enter 'v'. 
     # Use the abbreviated format ('v' and not 'invert-match').
     grep_options: 
+  mpstat:
+    # The command used to display MP statistics
+    command: mpstat
+    # Report current usage as the average over this many seconds.
+    interval: 1
 
