@@ -48,9 +48,9 @@ module MpstatAgent
       output = stat_output
       values,result = parse_values(output), {}
       [:usr, :user, :nice, :sys, :iowait, :irq, :soft, :steal, :idle].each do |k| 
-        report_metric(k, "%", values[k]) if values[k]
+        report_metric("mpstat/#{k}", "%", values[k]) if values[k]
       end
-      report_metric("intrps", "instr/sec", values[:intrps]) if values[:intrps]
+      report_metric("mpstat/intrps", "instr/sec", values[:intrps]) if values[:intrps]
     rescue Exception => e
       raise "Couldn't parse output. Make sure you have mpstat installed. #{e}"
     end
