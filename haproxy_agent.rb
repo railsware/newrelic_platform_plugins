@@ -59,7 +59,7 @@ module HaproxyAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
 
-    agent_guid   "11355241dd9f84409289e444aae235da20d01564"
+    agent_guid   "DROP_GUID_FROM_PLUGIN_HERE"
     agent_config_options :uri, :proxy, :proxy_type, :user, :password
     agent_human_labels("Haproxy") { proxy }
 
