@@ -51,11 +51,11 @@ module ResqueAgent
     agent_human_labels("Resque") { redis }
 
     def setup_metrics
-      @working      = NewRelic::Processor::Rate.new
-      @pending      = NewRelic::Processor::Rate.new
+      @working      = NewRelic::Processor::EpochCounter.new
+      @pending      = NewRelic::Processor::EpochCounter.new
       @total_failed = NewRelic::Processor::EpochCounter.new
-      @queues       = NewRelic::Processor::Rate.new
-      @workers      = NewRelic::Processor::Rate.new
+      @queues       = NewRelic::Processor::EpochCounter.new
+      @workers      = NewRelic::Processor::EpochCounter.new
       @processed    = NewRelic::Processor::EpochCounter.new
     end
 
