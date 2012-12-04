@@ -51,11 +51,7 @@ module ResqueAgent
     agent_human_labels("Resque") { redis }
 
     def setup_metrics
-      @working      = NewRelic::Processor::EpochCounter.new
-      @pending      = NewRelic::Processor::EpochCounter.new
       @total_failed = NewRelic::Processor::EpochCounter.new
-      @queues       = NewRelic::Processor::EpochCounter.new
-      @workers      = NewRelic::Processor::EpochCounter.new
       @processed    = NewRelic::Processor::EpochCounter.new
     end
 
@@ -69,12 +65,12 @@ module ResqueAgent
         Resque.redis.namespace = namespace unless namespace.nil?
         info = Resque.info
 
-        report_metric "Working", "Workers",   info[:working]
-        report_metric "Pending", "Jobs",      info[:pending]
-        report_metric "Total Failed", "Jobs", info[:total_failed]
-        report_metric "Queues", "Queues",     info[:queues]
-        report_metric "Workers", "Workers",   info[:workers]
-        report_metric "Processed", "Jobs",    info[:total_failed]
+        report_metric "Working", "Workers",          info[:working]
+        report_metric "Pending", "Jobs",             info[:pending]
+        report_metric "Total Failed", "Jobs/Second", @total_failed.process(info[:total_failed])
+        report_metric "Queues", "Queues",            info[:queues]
+        report_metric "Workers", "Workers",          info[:workers]
+        report_metric "Processed", "Jobs/Second",    @processed.process(info[:processed])
 
       rescue Redis::TimeoutError
         raise 'Redis server timeout'

@@ -8,7 +8,7 @@
 #  * Sessions Active
 #  * Sessions Queued
 #
-# Compatibility 
+# Compatibility
 # -------------
 # Requires the fastercsv gem
 
@@ -49,7 +49,7 @@ require 'open-uri'
 #            # The name of the proxy to monitor. Proxies are typically listed in the haproxy.cfg file.
 #            proxy: www
 #            # If multiple proxies have the same name, specify which proxy you want to monitor (ex: 'frontend' or 'backend')."
-#            proxy_type: 
+#            proxy_type:
 #            # If protected under basic authentication provide the user name
 #            user:
 #            # If protected under basic authentication provide the password.
@@ -71,7 +71,7 @@ module HaproxyAgent
       @bytes_in=NewRelic::Processor::EpochCounter.new
       @bytes_out=NewRelic::Processor::EpochCounter.new
     end
-    
+
     def poll_cycle
       if uri.nil?
         raise("URI to HAProxy Stats Required It looks like the URI to the HAProxy stats page (in csv format) hasn't been provided. Please enter this URI in the plugin settings.")
@@ -88,17 +88,17 @@ module HaproxyAgent
           next if proxy_type and proxy_type != row["svname"] # ensure the proxy type (if provided) matches
           possible_proxies << row["# pxname"] # used in error message
           next unless proxy.to_s.strip.downcase == row["# pxname"].downcase # ensure the proxy name matches
-          # if multiple proxies have the same name, we don't know which to report on. 
+          # if multiple proxies have the same name, we don't know which to report on.
           if found_proxies.include?(row["# pxname"])
             raise("Multiple proxies have the name '#{proxy}'. Please specify the proxy type (ex: BACKEND or FRONTEND) in the plugin's settings.")
           end
           found_proxies << row["# pxname"]
-          
+
           report_metric "Requests", "Requests/Seconds",             @requests.process(row['stot'].to_i)
           report_metric "Errors/Request", "Errors/Seconds",         @errors_req.process(row['ereq'].to_i)
           report_metric "Errors/Connection", "Errors/Seconds",      @errors_conn.process(row['econ'].to_i)
           report_metric "Errors/Response", "Errors/Seconds",        @errors_resp.process(row['eresp'].to_i)
-          
+
           report_metric "Bytes/Received", "Bytes/Seconds",          @bytes_in.process(row['bin'].to_i)
           report_metric "Bytes/Sent", "Bytes/Seconds",              @bytes_out.process(row['bout'].to_i)
 
@@ -125,9 +125,9 @@ module HaproxyAgent
       elsif found_proxies.empty?
         error("Proxy not found. The proxy '#{proxy}' #{proxy_type ? "w/proxy type [#{proxy_type}]" : nil} was not found. The possible proxies #{proxy_type ? "for this proxy type" : nil} to monitor:\n<ul>#{possible_proxies.map { |p| "<li>#{p}</li>"}.join('')}</ul>")
       end
-      
+
     end
-    
+
   end
 
 
