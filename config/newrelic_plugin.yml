@@ -21,8 +21,8 @@ newrelic:
   # Set to '1' for verbose output, remove for normal output.
   # All output goes to stdout/stderr.
   #
-  verbose: 1
-  poll: 5
+  verbose: 0
+  poll: 60
 #
 # Agent Configuration:
 #
@@ -33,10 +33,10 @@ agents:
     # Returns the number of matches for this term. Use Linux Regex formatting.
     # Default: "[Ee]rror"
     term: "[Ee]rror   "
-    # Provide any options to pass to grep when running. 
-    # For example, to count non-matching lines, enter 'v'. 
+    # Provide any options to pass to grep when running.
+    # For example, to count non-matching lines, enter 'v'.
     # Use the abbreviated format ('v' and not 'invert-match').
-    grep_options: 
+    grep_options:
   mpstat:
     # The command used to display MP statistics
     command: mpstat

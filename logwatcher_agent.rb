@@ -2,7 +2,7 @@
 
 # Monitors a given log file, reporting the rate of occurrences of a provided term. It’s the perfect plugin for error tracking.
 #
-# Compatibility 
+# Compatibility
 # -------------
 # Requires the tail, grep, and wc commands.
 
@@ -34,8 +34,8 @@ require "newrelic_plugin"
 #            # Returns the number of matches for this term. Use Linux Regex formatting.
 #            # Default: "[Ee]rror"
 #            term: "[Ee]rror"
-#            # Provide any options to pass to grep when running. 
-#            # For example, to count non-matching lines, enter 'v'. 
+#            # Provide any options to pass to grep when running.
+#            # For example, to count non-matching lines, enter 'v'.
 #            # Use the abbreviated format ('v' and not 'invert-match').
 #            grep_options:
 #
@@ -66,7 +66,7 @@ module LogwatcherAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
 
-    agent_guid   "DROP_GUID_FROM_PLUGIN_HERE"
+    agent_guid   "9e7aa0007e8aac8a7fa774d22295e20a84da4b42"
     agent_config_options :log_path, :term, :grep_options
     agent_human_labels("Logwatcher") { "#{log_path}" }
 
@@ -84,26 +84,26 @@ module LogwatcherAgent
       # don't run it the first time
       if (@last_length > 0 )
         read_length = current_length - @last_length
-        # Check to see if this file was rotated. This occurs when the +current_length+ is less than 
+        # Check to see if this file was rotated. This occurs when the +current_length+ is less than
         # the +last_run+. Don't return a count if this occured.
         if read_length >= 0
-          # finds new content from +last_length+ to the end of the file, then just extracts from the recorded 
-          # +read_length+. This ignores new lines that are added after finding the +current_length+. Those lines 
+          # finds new content from +last_length+ to the end of the file, then just extracts from the recorded
+          # +read_length+. This ignores new lines that are added after finding the +current_length+. Those lines
           # will be read on the next run.
           count = `tail -c +#{@last_length+1} #{log_path} | head -c #{read_length} | grep "#{term}" -#{grep_options.to_s.gsub('-','')}c`.strip.to_f
         end
       end
-          
+
       report_metric("Matches/Total", "Occurances", @occurances.process(count)) if count
       @last_length = current_length
     end
 
     private
-    
+
     def term
       @term || "[Ee]rror"
     end
-    
+
     def check_params
       @log_path = log_path.to_s.strip
       if log_path.empty?

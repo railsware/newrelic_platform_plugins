@@ -2,7 +2,7 @@
 
 # Reports the following MP statistics : user, nice, sys, iowait, irq, soft, steal, idle, intrps
 #
-# Compatibility 
+# Compatibility
 # -------------
 # Requires the mpstat command, usually provided by the sysstat package.
 
@@ -38,7 +38,7 @@ module MpstatAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
 
-    agent_guid   "DROP_GUID_FROM_PLUGIN_HERE"
+    agent_guid   "6da1852a19847c7c803d96af7391fd60b2aff9e9"
     agent_config_options :command, :interval
     agent_human_labels("Mpstat") { "Mpstat" }
 
@@ -47,14 +47,14 @@ module MpstatAgent
       # Using the second reading- avg since previous check
       output = stat_output
       values,result = parse_values(output), {}
-      [:usr, :user, :nice, :sys, :iowait, :irq, :soft, :steal, :idle].each do |k| 
+      [:usr, :user, :nice, :sys, :iowait, :irq, :soft, :steal, :idle].each do |k|
         report_metric("mpstat/#{k}", "%", values[k]) if values[k]
       end
       report_metric("mpstat/intrps", "instr/sec", values[:intrps]) if values[:intrps]
     rescue Exception => e
       raise "Couldn't parse output. Make sure you have mpstat installed. #{e}"
     end
-    
+
 
     private
 
@@ -64,7 +64,7 @@ module MpstatAgent
       stat_command = "#{command} #{interval} 2"
       `#{stat_command}`
     end
-    
+
     def parse_values(output)
       # Expected output format:
       # 04:38:34 PM  CPU   %user   %nice    %sys %iowait    %irq   %soft  %steal   %idle    intr/s
@@ -80,7 +80,7 @@ module MpstatAgent
       format.each_with_index { |field,i| stats[ format[i].to_sym ]=raw_stats[i] }
       stats
     end
-    
+
   end
 
 

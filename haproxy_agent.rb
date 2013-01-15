@@ -59,7 +59,7 @@ module HaproxyAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
 
-    agent_guid   "DROP_GUID_FROM_PLUGIN_HERE"
+    agent_guid   "11355241dd9f84409289e444aae235da20d01564"
     agent_config_options :uri, :proxy, :proxy_type, :user, :password
     agent_human_labels("Haproxy") { proxy }
 
@@ -106,7 +106,7 @@ module HaproxyAgent
           report_metric "Sessions/Queued", "Sessions",              row['qcur']
           report_metric "Servers/Active", "Servers",                row['act']
           report_metric "Servers/Backup", "Servers",                row['bck']
-          report_metric "ProxyUp", "Status",                        s%w(UP OPEN).find {|s| s == row['status']} ? 1 : 0
+          report_metric "ProxyUp", "Status",                        %w(UP OPEN).find {|s| s == row['status']} ? 1 : 0
 
         end # FasterCSV.parse
       rescue OpenURI::HTTPError
