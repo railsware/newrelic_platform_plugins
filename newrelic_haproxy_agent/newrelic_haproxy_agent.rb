@@ -61,6 +61,7 @@ module HaproxyAgent
 
     agent_guid   "11355241dd9f84409289e444aae235da20d01564"
     agent_config_options :uri, :proxy, :proxy_type, :user, :password
+    agent_version '0.0.1'
     agent_human_labels("Haproxy") { proxy }
 
     def setup_metrics
