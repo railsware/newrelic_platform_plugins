@@ -4,7 +4,7 @@
 #  * Number of working workers
 #  * Pending jobs number
 #  * Total failed jobs number
-#  * Ques number
+#  * Queues number
 #  * Number of workers
 #  * Number of processed jobs
 #
@@ -48,6 +48,7 @@ module ResqueAgent
 
     agent_guid "6e5e4fe8d943e82ee498e4d3618544e2e860f6c1"
     agent_config_options :redis, :namespace
+    agent_version '0.0.1'
     agent_human_labels("Resque") { redis }
 
     def setup_metrics
