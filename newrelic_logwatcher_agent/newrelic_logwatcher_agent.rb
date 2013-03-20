@@ -53,7 +53,7 @@ module NewRelic::Processor
       ret=nil
       curr_time=Time.now
       if @last_time and curr_time>@last_time
-        ret=val/(curr_time-@last_time).to_f
+        ret=val/(curr_time-@last_time).to_f*60
       end
       @last_value=val
       @last_time=curr_time
@@ -68,6 +68,7 @@ module LogwatcherAgent
 
     agent_guid   "9e7aa0007e8aac8a7fa774d22295e20a84da4b42"
     agent_config_options :log_path, :term, :grep_options
+    agent_version '0.0.1'
     agent_human_labels("Logwatcher") { "#{log_path}" }
 
     def setup_metrics
@@ -94,7 +95,7 @@ module LogwatcherAgent
         end
       end
 
-      report_metric("Matches/Total", "Occurances", @occurances.process(count)) if count
+      report_metric("Matches/Total", "Occurances/min", @occurances.process(count)) if count
       @last_length = current_length
     end
 

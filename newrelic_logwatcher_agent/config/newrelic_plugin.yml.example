@@ -1,0 +1,38 @@
+#
+#
+# This is a sample newrelic_plugin.yml file. Please move this file
+# to the following location if it is not already there:
+#
+#     ./config/newrelic_plugin.yml
+#
+# Where the current directory is the directory where your main program resides and is your current
+# directory when you run the main program.
+#
+# Please make sure to update the license_key information with the license key for your New Relic
+# account.
+#
+#
+newrelic:
+  #
+  # Update with your New Relic account license key:
+  #
+  license_key: 'YOUR_LICENSE_KEY_HERE'
+  #
+  # Set to '1' for verbose output, remove for normal output.
+  # All output goes to stdout/stderr.
+  #
+  verbose: 1
+#
+# Agent Configuration:
+#
+agents:
+  logwatcher:
+    # Full path to the the log file
+    log_path: tmp.log
+    # Returns the number of matches for this term. Use Linux Regex formatting.
+    # Default: "[Ee]rror"
+    term: "[Ee]rror   "
+    # Provide any options to pass to grep when running.
+    # For example, to count non-matching lines, enter 'v'.
+    # Use the abbreviated format ('v' and not 'invert-match').
+    grep_options:
