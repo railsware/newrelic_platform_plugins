@@ -46,7 +46,7 @@ module ResqueAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
 
-    agent_guid "6e5e4fe8d943e82ee498e4d3618544e2e860f6c1"
+    agent_guid "com.railsware.resque"
     agent_config_options :redis, :namespace
     agent_version '0.0.1'
     agent_human_labels("Resque") { redis }
@@ -66,12 +66,15 @@ module ResqueAgent
         Resque.redis.namespace = namespace unless namespace.nil?
         info = Resque.info
 
-        report_metric "Working", "Workers",          info[:working]
-        report_metric "Pending", "Jobs",             info[:pending]
-        report_metric "Total Failed", "Jobs/Second", @total_failed.process(info[:total_failed])
-        report_metric "Queues", "Queues",            info[:queues]
-        report_metric "Workers", "Workers",          info[:workers]
-        report_metric "Processed", "Jobs/Second",    @processed.process(info[:processed])
+        report_metric "Workers/Working", "Workers",           info[:working]
+        report_metric "Workers/Total", "Workers",             info[:workers]
+        report_metric "Jobs/Pending", "Jobs",                 info[:pending]
+        report_metric "Jobs/Rate/Processed", "Jobs/Second",        @processed.process(info[:processed])
+        report_metric "Jobs/Rate/Failed", "Jobs/Second",           @total_failed.process(info[:total_failed])
+        report_metric "Queues", "Queues",                     info[:queues]
+        report_metric "Jobs/Failed", "Jobs",                  info[:total_failed] || 0
+        
+        
 
       rescue Redis::TimeoutError
         raise 'Redis server timeout'
