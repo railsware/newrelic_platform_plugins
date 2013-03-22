@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/newrelic-platform/newrelic_plugin.git
+  remote: git@github.com:newrelic-platform/newrelic_plugin.git
   revision: 024d0c562a8ab73aabe7fab7f7485a2742b43adf
   specs:
     newrelic_plugin (0.2.11)
