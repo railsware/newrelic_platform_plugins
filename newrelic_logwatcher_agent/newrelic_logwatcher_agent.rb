@@ -66,7 +66,7 @@ module LogwatcherAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
 
-    agent_guid   "9e7aa0007e8aac8a7fa774d22295e20a84da4b42"
+    agent_guid   "com.railsware.logwatcher"
     agent_config_options :log_path, :term, :grep_options
     agent_version '0.0.1'
     agent_human_labels("Logwatcher") { "#{log_path}" }
