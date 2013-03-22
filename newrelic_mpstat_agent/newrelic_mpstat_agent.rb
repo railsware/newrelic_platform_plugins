@@ -38,7 +38,7 @@ module MpstatAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
 
-    agent_guid   "6da1852a19847c7c803d96af7391fd60b2aff9e9"
+    agent_guid   "com.railsware.mpstat"
     agent_config_options :command, :interval
     agent_version '0.0.1'
     agent_human_labels("Mpstat") { "Mpstat" }
