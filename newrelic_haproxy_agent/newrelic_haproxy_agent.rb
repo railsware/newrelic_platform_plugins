@@ -59,7 +59,7 @@ module HaproxyAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
 
-    agent_guid   "11355241dd9f84409289e444aae235da20d01564"
+    agent_guid   "com.railsware.haproxy"
     agent_config_options :uri, :proxy, :proxy_type, :user, :password
     agent_version '0.0.1'
     agent_human_labels("Haproxy") { proxy }
@@ -95,10 +95,10 @@ module HaproxyAgent
           end
           found_proxies << row["# pxname"]
 
-          report_metric "Requests", "Requests/Seconds",             @requests.process(row['stot'].to_i)
-          report_metric "Errors/Request", "Errors/Seconds",         @errors_req.process(row['ereq'].to_i)
-          report_metric "Errors/Connection", "Errors/Seconds",      @errors_conn.process(row['econ'].to_i)
-          report_metric "Errors/Response", "Errors/Seconds",        @errors_resp.process(row['eresp'].to_i)
+          report_metric "Requests", "Requests/Minute",             @requests.process(row['stot'].to_i) * 60 if @requests.process(row['stot'].to_i)
+          report_metric "Errors/Request", "Errors/Minute",         @errors_req.process(row['ereq'].to_i) * 60 if @errors_req.process(row['ereq'].to_i)
+          report_metric "Errors/Connection", "Errors/Minute",      @errors_conn.process(row['econ'].to_i) * 60 if @errors_conn.process(row['econ'].to_i)
+          report_metric "Errors/Response", "Errors/Minute",        @errors_resp.process(row['eresp'].to_i) * 60 if @errors_resp.process(row['eresp'].to_i)
 
           report_metric "Bytes/Received", "Bytes/Seconds",          @bytes_in.process(row['bin'].to_i)
           report_metric "Bytes/Sent", "Bytes/Seconds",              @bytes_out.process(row['bout'].to_i)
