@@ -48,7 +48,7 @@ module ResqueAgent
 
     agent_guid "com.railsware.resque"
     agent_config_options :redis, :namespace
-    agent_version '0.0.1'
+    agent_version '0.0.2'
     agent_human_labels("Resque") { redis }
 
     def setup_metrics
@@ -65,14 +65,14 @@ module ResqueAgent
         Resque.redis = redis
         Resque.redis.namespace = namespace unless namespace.nil?
         info = Resque.info
-
+        
         report_metric "Workers/Working", "Workers",           info[:working]
         report_metric "Workers/Total", "Workers",             info[:workers]
         report_metric "Jobs/Pending", "Jobs",                 info[:pending]
         report_metric "Jobs/Rate/Processed", "Jobs/Second",        @processed.process(info[:processed])
-        report_metric "Jobs/Rate/Failed", "Jobs/Second",           @total_failed.process(info[:total_failed])
+        report_metric "Jobs/Rate/Failed", "Jobs/Second",           @total_failed.process(info[:failed])
         report_metric "Queues", "Queues",                     info[:queues]
-        report_metric "Jobs/Failed", "Jobs",                  info[:total_failed] || 0
+        report_metric "Jobs/Failed", "Jobs",                  info[:failed] || 0
         
         
 
