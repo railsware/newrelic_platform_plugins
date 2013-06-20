@@ -1,2 +1,4 @@
 source "http://rubygems.org"
 gem "newrelic_plugin"
+
+gem 'fastercsv', :platforms => :ruby_18

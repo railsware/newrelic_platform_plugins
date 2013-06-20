@@ -18,7 +18,7 @@ require "bundler/setup"
 require "newrelic_plugin"
 
 if RUBY_VERSION < "1.9"
-  needs 'fastercsv'
+  require 'fastercsv'
 else
   # typically, avoid require. In this case we can't use needs' deferred loading because we need to alias CSV
   require 'csv'
@@ -61,7 +61,7 @@ module HaproxyAgent
 
     agent_guid   "com.railsware.haproxy"
     agent_config_options :uri, :proxy, :proxy_type, :user, :password
-    agent_version '0.0.4'
+    agent_version '0.0.5'
     agent_human_labels("Haproxy") { proxy }
 
     def setup_metrics
