@@ -122,9 +122,9 @@ module HaproxyAgent
         raise("Unable to access stats page. The plugin encountered an error attempting to access the stats page (in CSV format) at: #{uri}. The exception: #{$!.message}\n#{$!.backtrace}")
       end
       if proxy.nil?
-        error("Proxy name required. The name of the proxy to monitor must be provided in the plugin settings. The possible proxies to monitor:\n<ul>#{possible_proxies.map { |p| "<li>#{p}</li>"}.join('')}</ul>")
+        raise("Proxy name required. The name of the proxy to monitor must be provided in the plugin settings. The possible proxies to monitor: #{possible_proxies.join(', ')}")
       elsif found_proxies.empty?
-        error("Proxy not found. The proxy '#{proxy}' #{proxy_type ? "w/proxy type [#{proxy_type}]" : nil} was not found. The possible proxies #{proxy_type ? "for this proxy type" : nil} to monitor:\n<ul>#{possible_proxies.map { |p| "<li>#{p}</li>"}.join('')}</ul>")
+        raise("Proxy not found. The proxy '#{proxy}' #{proxy_type ? "w/proxy type [#{proxy_type}]" : nil} was not found. The possible proxies #{proxy_type ? "for this proxy type" : nil} to monitor: #{possible_proxies.join(', ')}")
       end
 
     end
