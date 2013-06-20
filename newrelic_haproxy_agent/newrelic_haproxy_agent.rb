@@ -61,7 +61,7 @@ module HaproxyAgent
 
     agent_guid   "com.railsware.haproxy"
     agent_config_options :uri, :proxy, :proxy_type, :user, :password
-    agent_version '0.0.3'
+    agent_version '0.0.4'
     agent_human_labels("Haproxy") { proxy }
 
     def setup_metrics

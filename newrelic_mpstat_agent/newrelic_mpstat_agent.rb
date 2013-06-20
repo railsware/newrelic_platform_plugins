@@ -40,7 +40,7 @@ module MpstatAgent
 
     agent_guid   "com.railsware.mpstat"
     agent_config_options :command, :interval
-    agent_version '0.0.1'
+    agent_version '0.0.2'
     agent_human_labels("Mpstat") { "Mpstat" }
 
 

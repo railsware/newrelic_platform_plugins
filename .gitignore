@@ -1,2 +1,6 @@
 .idea/
+newrelic_logwatcher_agent/config/newrelic_plugin.yml
+newrelic_logwatcher_agent/tmp.log
+newrelic_mpstat_agent/config/newrelic_plugin.yml
+newrelic_resque_agent/config/newrelic_plugin.yml
 newrelic_haproxy_agent/config/newrelic_plugin.yml

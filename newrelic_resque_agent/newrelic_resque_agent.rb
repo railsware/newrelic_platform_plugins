@@ -48,7 +48,7 @@ module ResqueAgent
 
     agent_guid "com.railsware.resque"
     agent_config_options :redis, :namespace
-    agent_version '0.0.2'
+    agent_version '0.0.3'
     agent_human_labels("Resque") { redis }
 
     def setup_metrics

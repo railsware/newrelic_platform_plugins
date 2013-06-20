@@ -68,7 +68,7 @@ module LogwatcherAgent
 
     agent_guid   "com.railsware.logwatcher"
     agent_config_options :log_path, :term, :grep_options
-    agent_version '0.0.1'
+    agent_version '0.0.2'
     agent_human_labels("Logwatcher") { "#{log_path}" }
 
     def setup_metrics
