@@ -1,17 +1,4 @@
 #!/usr/bin/env ruby
-$stdout.sync = true
-
-# Monitors HAProxy, a TCP/HTTP load balancer, reporting the following data for a specified proxy:
-#  * Error Rate (per-min)
-#  * Proxy Status
-#  * Request Rate (per-min)
-#  * Active Servers
-#  * Sessions Active
-#  * Sessions Queued
-#
-# Compatibility
-# -------------
-# Requires the fastercsv gem
 
 require "rubygems"
 require "bundler/setup"
@@ -26,42 +13,15 @@ else
 end
 require 'open-uri'
 
-#
-#
-# NOTE: Please add the following lines to your Gemfile:
-#     gem "newrelic_plugin", git: "git@github.com:newrelic-platform/newrelic_plugin.git"
-#
-#
-# Note: You must have a config/newrelic_plugin.yml file that
-#       contains the following information in order to use
-#       this Gem:
-#
-#       newrelic:
-#         # Update with your New Relic account license key:
-#         license_key: 'put_your_license_key_here'
-#         # Set to '1' for verbose output, remove for normal output.
-#         # All output goes to stdout/stderr.
-#         verbose: 1
-#       agents:
-#         haproxy:
-#            # URI of the haproxy CSV stats url. See the 'CSV Export' link on your haproxy stats page (example stats page: http://demo.1wt.eu/).
-#            uri: http://demo.1wt.eu/;csv
-#            # The name of the proxy to monitor. Proxies are typically listed in the haproxy.cfg file.
-#            proxy: www
-#            # If multiple proxies have the same name, specify which proxy you want to monitor (ex: 'frontend' or 'backend')."
-#            proxy_type:
-#            # If protected under basic authentication provide the user name
-#            user:
-#            # If protected under basic authentication provide the password.
-#            password:
-
-module HaproxyAgent
+module NewRelicHaproxyAgent
+  
+  VERSION = '0.0.5'
 
   class Agent < NewRelic::Plugin::Agent::Base
 
     agent_guid   "com.railsware.haproxy"
     agent_config_options :uri, :proxy, :proxy_type, :user, :password
-    agent_version '0.0.5'
+    agent_version NewRelicHaproxyAgent::VERSION
     agent_human_labels("Haproxy") { ident }
     
     attr_reader :ident
@@ -132,14 +92,17 @@ module HaproxyAgent
     end
 
   end
-
-  NewRelic::Plugin::Config.config.agents.keys.each do |agent|
-    NewRelic::Plugin::Setup.install_agent agent, HaproxyAgent
-  end
   
-  #
-  # Launch the agent (never returns)
-  #
-  NewRelic::Plugin::Run.setup_and_run
+  # Register and run the agent
+  def self.run
+    NewRelic::Plugin::Config.config.agents.keys.each do |agent|
+      NewRelic::Plugin::Setup.install_agent agent, NewRelicHaproxyAgent
+    end
+
+    #
+    # Launch the agent (never returns)
+    #
+    NewRelic::Plugin::Run.setup_and_run
+  end
 
 end
