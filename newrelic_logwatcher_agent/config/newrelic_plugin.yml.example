@@ -26,9 +26,19 @@ newrelic:
 # Agent Configuration:
 #
 agents:
-  logwatcher:
+  my_logfile_1:
     # Full path to the the log file
     log_path: tmp.log
+    # Returns the number of matches for this term. Use Linux Regex formatting.
+    # Default: "[Ee]rror"
+    term: "[Ee]rror   "
+    # Provide any options to pass to grep when running.
+    # For example, to count non-matching lines, enter 'v'.
+    # Use the abbreviated format ('v' and not 'invert-match').
+    grep_options:
+  my_logfile_2:
+    # Full path to the the log file
+    log_path: tmp2.log
     # Returns the number of matches for this term. Use Linux Regex formatting.
     # Default: "[Ee]rror"
     term: "[Ee]rror   "

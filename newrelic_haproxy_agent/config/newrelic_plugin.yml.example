@@ -26,7 +26,18 @@ newrelic:
 # Agent Configuration:
 #
 agents:
-  haproxy:
+  my_haproxy_1:
+    # URI of the haproxy CSV stats url. See the 'CSV Export' link on your haproxy stats page (example stats page: http://demo.1wt.eu/).
+    uri: http://demo.1wt.eu/;csv
+    # The name of the proxy to monitor. Proxies are typically listed in the haproxy.cfg file.
+    proxy: http-in
+    # If multiple proxies have the same name, specify which proxy you want to monitor (ex: 'frontend' or 'backend')."
+    proxy_type: FRONTEND
+    # If protected under basic authentication provide the user name
+    user:
+    # If protected under basic authentication provide the password.
+    password:
+  my_haproxy_2:
     # URI of the haproxy CSV stats url. See the 'CSV Export' link on your haproxy stats page (example stats page: http://demo.1wt.eu/).
     uri: http://demo.1wt.eu/;csv
     # The name of the proxy to monitor. Proxies are typically listed in the haproxy.cfg file.

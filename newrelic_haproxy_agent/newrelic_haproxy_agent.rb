@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+$stdout.sync = true
 
 # Monitors HAProxy, a TCP/HTTP load balancer, reporting the following data for a specified proxy:
 #  * Error Rate (per-min)
@@ -11,7 +12,6 @@
 # Compatibility
 # -------------
 # Requires the fastercsv gem
-
 
 require "rubygems"
 require "bundler/setup"
@@ -62,7 +62,9 @@ module HaproxyAgent
     agent_guid   "com.railsware.haproxy"
     agent_config_options :uri, :proxy, :proxy_type, :user, :password
     agent_version '0.0.5'
-    agent_human_labels("Haproxy") { proxy }
+    agent_human_labels("Haproxy") { ident }
+    
+    attr_reader :ident
 
     def setup_metrics
       @requests=NewRelic::Processor::EpochCounter.new
@@ -131,9 +133,10 @@ module HaproxyAgent
 
   end
 
-
-  NewRelic::Plugin::Setup.install_agent :haproxy, HaproxyAgent
-
+  NewRelic::Plugin::Config.config.agents.keys.each do |agent|
+    NewRelic::Plugin::Setup.install_agent agent, HaproxyAgent
+  end
+  
   #
   # Launch the agent (never returns)
   #

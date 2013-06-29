@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+$stdout.sync = true
 
 # Monitors a given log file, reporting the rate of occurrences of a provided term. It’s the perfect plugin for error tracking.
 #
@@ -69,7 +70,9 @@ module LogwatcherAgent
     agent_guid   "com.railsware.logwatcher"
     agent_config_options :log_path, :term, :grep_options
     agent_version '0.0.2'
-    agent_human_labels("Logwatcher") { "#{log_path}" }
+    agent_human_labels("Logwatcher") { ident }
+    
+    attr_reader :ident
 
     def setup_metrics
       @occurances=NewRelic::Processor::DiffRate.new
@@ -124,8 +127,9 @@ module LogwatcherAgent
     end
   end
 
-
-  NewRelic::Plugin::Setup.install_agent :logwatcher, LogwatcherAgent
+  NewRelic::Plugin::Config.config.agents.keys.each do |agent|
+    NewRelic::Plugin::Setup.install_agent agent, LogwatcherAgent
+  end
 
   #
   # Launch the agent (never returns)

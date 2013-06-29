@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+$stdout.sync = true
 
 # Reports the following MP statistics : user, nice, sys, iowait, irq, soft, steal, idle, intrps
 #
@@ -41,7 +42,7 @@ module MpstatAgent
     agent_guid   "com.railsware.mpstat"
     agent_config_options :command, :interval
     agent_version '0.0.2'
-    agent_human_labels("Mpstat") { "Mpstat" }
+    agent_human_labels("Mpstat") { `hostname -f` }
 
 
     def poll_cycle

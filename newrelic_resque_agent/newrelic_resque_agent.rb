@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+$stdout.sync = true
 
 # Monitors Resque, a library for processing background jobs, reporting the following data for a specified instance:
 #  * Number of working workers
@@ -49,7 +50,9 @@ module ResqueAgent
     agent_guid "com.railsware.resque"
     agent_config_options :redis, :namespace
     agent_version '0.0.3'
-    agent_human_labels("Resque") { redis }
+    agent_human_labels("Resque") { ident }
+    
+    attr_reader :ident
 
     def setup_metrics
       @total_failed = NewRelic::Processor::EpochCounter.new
@@ -86,7 +89,10 @@ module ResqueAgent
     end
 
   end
-  NewRelic::Plugin::Setup.install_agent :resque, ResqueAgent
+  
+  NewRelic::Plugin::Config.config.agents.keys.each do |agent|
+    NewRelic::Plugin::Setup.install_agent agent, ResqueAgent
+  end
 
   #
   # Launch the agent (never returns)
