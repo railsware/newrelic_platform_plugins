@@ -24,17 +24,17 @@ The Haproxy monitoring Plugin for New Relic requires the following:
 
 2. Install config, execute
 
-    `sudo newrelic_haproxy_agent install` - it will create +/etc/newrelic/newrelic_haproxy_agent.yml+ file for you.
+    `sudo newrelic_haproxy_agent install` - it will create `/etc/newrelic/newrelic_haproxy_agent.yml` file for you.
 
-3. Edit the +/etc/newrelic/newrelic_haproxy_agent.yml+ file generated in step 2. 
+3. Edit the `/etc/newrelic/newrelic_haproxy_agent.yml` file generated in step 2. 
  
-    3.1. replace "YOUR_LICENSE_KEY_HERE" with your New Relic license key. Your license key can be found under Account Settings at https://rpm.newrelic.com see https://newrelic.com/docs/subscriptions/license-key for more help.
+    3.1. replace `YOUR_LICENSE_KEY_HERE` with your New Relic license key. Your license key can be found under Account Settings at https://rpm.newrelic.com, see https://newrelic.com/docs/subscriptions/license-key for more help.
 
     3.2. add the URI of the haproxy CSV stats url
 
 4. Execute
 
-    newrelic_haproxy_agent run
+    `newrelic_haproxy_agent run`
   
 5. Go back to the Plugins list and after a brief period you will see the Haproxy Plugin listed in your New Relic account
 
