@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'newrelic_haproxy_agent'
   s.version           = '0.0.5'
-  s.date              = '2013-06-29'
+  s.date              = '2013-06-30'
   # s.rubyforge_project = 'newrelic_haproxy_agent'
 
   ## Make sure your summary is short. The description may be as long
@@ -65,14 +65,12 @@ This is the New Relic plugin for monitoring Haproxy developed by Railsware Inc.
   # = MANIFEST =
   s.files = %w[
     Gemfile
-    Gemfile.lock
     README.md
     Rakefile
     bin/newrelic_haproxy_agent
     config/newrelic_plugin.yml.example
     lib/newrelic_haproxy_agent.rb
     newrelic_haproxy_agent.gemspec
-    newrelic_haproxy_agent.rb
   ]
   # = MANIFEST =
 

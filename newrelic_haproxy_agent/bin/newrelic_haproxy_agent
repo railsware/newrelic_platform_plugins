@@ -37,6 +37,11 @@ end
 args = options.parse!(ARGV)
 
 if args.first == "run"
+  if !File.exists? NewRelic::Plugin::Config.config_file
+    puts "Agent config file not found: #{NewRelic::Plugin::Config.config_file.inspect}"
+    puts "Run 'sudo newrelic_haproxy_agent install' for setup config"
+    exit 1
+  end
   NewRelicHaproxyAgent.run
 elsif args.first == "install"
   config_file = File.read(File.expand_path("../../config/newrelic_plugin.yml.example", __FILE__))
