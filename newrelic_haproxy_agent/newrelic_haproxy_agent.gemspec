@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'newrelic_haproxy_agent'
-  s.version           = '0.0.6'
+  s.version           = '1.0.0'
   s.date              = '2013-06-30'
   # s.rubyforge_project = 'newrelic_haproxy_agent'
 

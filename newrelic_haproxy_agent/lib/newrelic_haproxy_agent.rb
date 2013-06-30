@@ -15,7 +15,7 @@ require 'open-uri'
 
 module NewRelicHaproxyAgent
   
-  VERSION = '0.0.6'
+  VERSION = '1.0.0'
 
   class Agent < NewRelic::Plugin::Agent::Base
 
