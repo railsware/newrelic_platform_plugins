@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+$stdout.sync = true
+
+$LOAD_PATH.unshift File.expand_path "../../lib", __FILE__
+require "newrelic_resque_agent"
+require 'optparse'
+
+NewRelic::Plugin::Config.config_file = "/etc/newrelic/newrelic_resque_agent.yml"
+
+options = OptionParser.new do |opts|
+  opts.banner = <<-EOF
+Usage:
+  newrelic_resque_agent ( run | install ) [options]
+EOF
+
+  opts.on("-v", "--verbose", "Run verbosely") do
+    NewRelic::Plugin::Config.config.newrelic['verbose'] = 1
+  end
+  
+  opts.on("-c", "--config FILE", "Override the location of the newrelic_plugin.yml") do | filename |
+    if !File.exists? filename
+      puts "File not found: #{filename.inspect}"
+      exit 1
+    end
+    NewRelic::Plugin::Config.config_file = filename
+  end
+
+  opts.on("-h", "--help") do
+    puts opts
+    if File.basename($0) == File.basename(__FILE__)
+      exit 0
+    end
+  end
+
+end
+
+args = options.parse!(ARGV)
+
+if args.first == "run"
+  if !File.exists? NewRelic::Plugin::Config.config_file
+    puts "Agent config file not found: #{NewRelic::Plugin::Config.config_file.inspect}"
+    puts "Run 'sudo newrelic_resque_agent install' for setup config"
+    exit 1
+  end
+  NewRelicResqueAgent.run
+elsif args.first == "install"
+  config_file = File.read(File.expand_path("../../config/newrelic_plugin.yml.example", __FILE__))
+ 
+  require 'fileutils'
+  FileUtils.mkdir_p "/etc/newrelic"
+  File.open("/etc/newrelic/newrelic_resque_agent.yml", "w") do | io |
+    io.write(config_file)
+  end
+  puts "Saved agent config file #{File.expand_path("/etc/newrelic/newrelic_resque_agent.yml")}"
+else
+  puts options
+end

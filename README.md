@@ -10,4 +10,4 @@
 
 ## Support
 
-Please use Github issue for support.
+Please use Github issues for support.

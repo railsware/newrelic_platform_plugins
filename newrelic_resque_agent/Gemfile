@@ -1,5 +1,2 @@
 source "http://rubygems.org"
-gem "newrelic_plugin"
-
-gem 'resque'
-gem 'redis'
+gemspec

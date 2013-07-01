@@ -56,4 +56,4 @@ Foreman can be useful if you want to use [Heroku](https://www.heroku.com/) for r
 
 ## Support
 
-Please use Github issue for support.
+Please use Github issues for support.
