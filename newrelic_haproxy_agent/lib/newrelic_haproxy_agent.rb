@@ -27,7 +27,6 @@ module NewRelicHaproxyAgent
     attr_reader :ident
 
     def setup_metrics
-      @requests=NewRelic::Processor::EpochCounter.new
       @errors_req=NewRelic::Processor::EpochCounter.new
       @errors_conn=NewRelic::Processor::EpochCounter.new
       @errors_resp=NewRelic::Processor::EpochCounter.new
@@ -56,7 +55,7 @@ module NewRelicHaproxyAgent
             raise("Multiple proxies have the name '#{proxy}'. Please specify the proxy type (ex: BACKEND or FRONTEND) in the plugin's settings.")
           end
           found_proxies << row["# pxname"]
-          report_metric "Requests", "Requests/Minute",             (@requests.process(row['stot'].to_i) || 0) * 60
+          report_metric "Requests", "Requests/Minute",             (row['req_rate'].to_i || 0) * 60
           report_metric "Errors/Request", "Errors/Minute",         (@errors_req.process(row['ereq'].to_i) || 0) * 60
           report_metric "Errors/Connection", "Errors/Minute",      (@errors_conn.process(row['econ'].to_i) || 0) * 60
           report_metric "Errors/Response", "Errors/Minute",        (@errors_resp.process(row['eresp'].to_i) || 0) * 60
