@@ -21,12 +21,12 @@ newrelic:
 #
 agents:
   my_resque_1:
-    # Redis connection string: 'hostname:port' or 'hostname:port:db' or 'redis://user:password@hostname:port:db'
+    # Redis connection string: 'hostname:port' or 'hostname:port:db' or 'redis://user:password@hostname:port' or 'redis://user:password@hostname:port/db'
     redis: localhost:6379
     # Resque namespace
     namespace:
   my_resque_2:
-    # Redis connection string: 'hostname:port' or 'hostname:port:db' or 'redis://user:password@hostname:port:db'
+    # Redis connection string: 'hostname:port' or 'hostname:port:db' or 'redis://user:password@hostname:port' or 'redis://user:password@hostname:port/db'
     redis: localhost:6379
     # Resque namespace
     namespace:
