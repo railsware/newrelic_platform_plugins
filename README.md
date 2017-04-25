@@ -10,4 +10,4 @@
 
 ## Support
 
-Please use Github issues for support.
+Provided plugins are no longer supported.

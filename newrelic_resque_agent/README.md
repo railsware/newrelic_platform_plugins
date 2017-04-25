@@ -26,8 +26,8 @@ The Resque monitoring Plugin for New Relic requires the following:
 
     `sudo newrelic_resque_agent install` - it will create `/etc/newrelic/newrelic_resque_agent.yml` file for you.
 
-3. Edit the `/etc/newrelic/newrelic_resque_agent.yml` file generated in step 2. 
- 
+3. Edit the `/etc/newrelic/newrelic_resque_agent.yml` file generated in step 2.
+
     3.1. replace `YOUR_LICENSE_KEY_HERE` with your New Relic license key. Your license key can be found under Account Settings at https://rpm.newrelic.com, see https://newrelic.com/docs/subscriptions/license-key for more help.
 
     3.2. add the Redis connection string: 'hostname:port' or 'hostname:port:db' or 'redis://user:password@hostname:port:db'
@@ -35,7 +35,7 @@ The Resque monitoring Plugin for New Relic requires the following:
 4. Execute
 
     `newrelic_resque_agent run`
-  
+
 5. Go back to the Plugins list and after a brief period you will see the Resque Plugin listed in your New Relic account
 
 
@@ -48,12 +48,8 @@ You can use services like these to manage this process and run it as a daemon.
 - [Runit](http://smarden.org/runit/)
 - [Monit](http://mmonit.com/monit/)
 
-Also you can use [foreman](https://github.com/ddollar/foreman) for daemonization. 
+Also you can use [foreman](https://github.com/ddollar/foreman) for daemonization.
 
-Foreman can be useful if you want to use [Heroku](https://www.heroku.com/) for run your agent. Just add Procfile and push to Heroku. 
+Foreman can be useful if you want to use [Heroku](https://www.heroku.com/) for run your agent. Just add Procfile and push to Heroku.
 
 `monitor_daemon: newrelic_resque_agent run -c config/newrelic_plugin.yml`
-
-## Support
-
-Please use Github issues for support.
